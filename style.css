@@ -1,0 +1,127 @@
+:root {
+    --bg-dark: #090b10;
+    --accent: linear-gradient(90deg, #00f2fe, #4facfe);
+    --card-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* Стили для светлой темы */
+body.light {
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    background: var(--accent);
+    -webkit-background-clip: text;
+    background-clip: text; /* Стандартное свойство */
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+body {
+    margin: 0;
+    background: radial-gradient(circle at top right, #1e1b4b, #090b10);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    transition: 0.3s;
+}
+
+/* Базовые настройки для всех элементов */
+* { box-sizing: border-box; }
+
+/* Настройка ШАПКИ отдельно */
+header {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 90%;
+    padding: 20px 0; /* Убрали горизонтальный padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Настройка ОСНОВНОГО КОНТЕНТА отдельно */
+.main-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 90%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* Сетка контента */
+.main-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 15px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.card:hover { border-color: #00f2fe; box-shadow: 0 0 15px rgba(0, 242, 254, 0.3); }
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.contact {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid #4facfe;
+    padding: 25px;
+    border-radius: 20px;
+    height: fit-content;
+    align-self: start; /* ЭТО КЛЮЧЕВАЯ ПРАВКА */
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    box-sizing: border-box;
+}
+
+button {
+    background: var(--accent);
+    border: none;
+    padding: 12px 25px;
+    color: white;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* Стили модального окна */
+#modal-overlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.8); display: flex; 
+    align-items: center; justify-content: center; z-index: 1000;
+}
+.hidden { display: none !important; }
+.modal { background: #1e1b4b; padding: 40px; border-radius: 20px; width: 80%; max-width: 500px; position: relative; }

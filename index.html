@@ -3,145 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная — Поиск Фильмов</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #141414;
-            color: #ffffff;
-            margin: 0;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        h1 {
-            color: #e50914; 
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-        p.subtitle {
-            color: #aaa;
-            font-size: 1.2rem;
-        }
-        .movies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .movie-card {
-            background-color: #1f1f1f;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none; 
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-        }
-        .movie-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 20px rgba(229, 9, 20, 0.4);
-        }
-        .poster {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            background-color: #333;
-        }
-        .movie-info {
-            padding: 15px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .movie-title {
-            font-size: 1.1rem;
-            margin: 0 0 10px 0;
-            font-weight: bold;
-        }
-        .movie-meta {
-            display: flex;
-            justify-content: space-between;
-            color: #aaa;
-            font-size: 0.85rem;
-        }
-        .rating {
-            color: #ffbd03;
-            font-weight: bold;
-        }
-    </style>
+    <title>КиноHub</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<header>
-    <h1>КиноПоиск Demo</h1>
-    <p class="subtitle">Выберите фильм для просмотра деталей</p>
+   <header>
+    <div class="logo">КиноHub</div>
+    <nav>
+        <button id="theme-toggle">Сменить тему</button>
+    </nav>
 </header>
 
-<main class="movies-grid" id="movies-container">
-    <div style="grid-column: 1/-1; text-align: center; color: #aaa;">Загрузка списка популярных фильмов...</div>
+<main class="main-wrapper">
+    <section>
+        <section class="gallery" id="movie-grid"></section>
+        <button id="load-more" class="main-btn">Показать еще</button>
+    </section>
+
+
+    <section class="contact">
+        <h2>Оставить отзыв</h2>
+        <form id="feedback-form">
+            <input type="email" id="email" placeholder="E-mail" required>
+            <textarea placeholder="Сообщение"></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    </section>
 </main>
 
-<script>
-    // Используем тот же API ключ
-    const API_KEY = '74d8f6c9-ddea-43ed-923a-5dd3ad160bd8';
-    const url = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/collections?type=TOP_POPULAR_MOVIES&page=1';
 
-    async function loadPopularMovies() {
-        const container = document.getElementById('movies-container');
-        
-        try {
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'X-API-KEY': API_KEY,
-                    'Content-Type': 'application/json',
-                },
-            });
-            
-            if (!response.ok) throw new Error('Ошибка сети или неверный токен');
-            
-            const data = await response.json();
-            const movies = data.items; 
 
-            container.innerHTML = '';
 
-            movies.forEach(movie => {
-                const movieCard = document.createElement('a');
-                movieCard.className = 'movie-card';
-                movieCard.href = `film.html?id=${movie.kinopoiskId}`;
+    <div id="modal-overlay" class="hidden">
+        <div class="modal">
+            <button id="close-modal">X</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
 
-                const posterUrl = movie.posterUrlPreview || 'https://via.placeholder.com/200x300?text=Нет+постера';
-                const year = movie.year || '----';
-                const rating = movie.ratingKinopoisk || movie.ratingImdb || '0.0';
-
-                movieCard.innerHTML = `
-                    <img class="poster" src="${posterUrl}" alt="${movie.nameRu || movie.nameEn}">
-                    <div class="movie-info">
-                        <div class="movie-title">${movie.nameRu || movie.nameEn}</div>
-                        <div class="movie-meta">
-                            <span>${year}</span>
-                            <span class="rating">★ ${rating}</span>
-                        </div>
-                    </div>
-                `;
-
-                container.appendChild(movieCard);
-            });
-
-        } catch (error) {
-            container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #ff4a4a;">Не удалось загрузить фильмы через Кинопоиск API. Проверьте ключ в коде.</div>`;
-            console.error(error);
-        }
-    }
-
-    loadPopularMovies();
-</script>
+    <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
